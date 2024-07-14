@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Added Fonts */
+
+@layer base {
+  @font-face {
+    font-family: "martin";
+    src: url("/fonts/martin-regular-webfont.woff") format("woff"),
+      url("/fonts/martin-regular-webfont.woff2") format("woff2");
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "sourceSansPro";
+    src: url("/fonts/sourcesanspro-regular-webfont.woff") format("woff"),
+      url("/fonts/sourcesanspro-regular-webfont.woff2") format("woff2");
+  }
+}
+
+/* CSS Classes */
+
+.h-80vh {
+  height: 80vh;
+}
+
+/* CSS Classes with Tailwind */
+
+@layer components {
+  .header-text {
+    @apply font-martin tracking-wide;
+  }
+}
