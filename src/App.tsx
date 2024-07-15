@@ -5,8 +5,7 @@ import {
 	CubeConnection,
 } from '@mirevi/puzzlecube-core';
 import Header from './components/Header';
-import TestButton from './components/TestButtons';
-import StartGameButton from './components/StartGameButton';
+import Button from './components/Button/Button';
 import CubeWindow from './components/cubedisplay/CubeWindow';
 import { MqttCommunication } from './components/MqttCommunication';
 import { useState } from 'react';
@@ -59,8 +58,24 @@ function App() {
 					}
 				/>
 				<Header />
-				<TestButton />
-				<StartGameButton />
+				<div className='button-container'>
+					<div className='button-wrapper button-wrapper--connect'>
+						<p>1.</p>
+						<Button type='connect' />
+					</div>
+					<div className='button-wrapper button-wrapper--level'>
+						<p>2.</p>
+						<Button type='level' />
+					</div>
+					<div className='button-wrapper button-wrapper--start'>
+						<p>3.</p>
+						<Button type='start' />
+					</div>
+					<div className='button-wrapper button-wrapper--emergency'>
+						<p>(only use when cube can't host or you want to reconnect)</p>
+						<Button type='emergency' />
+					</div>
+				</div>
 				<CubeWindow />
 			</div>
 		</div>

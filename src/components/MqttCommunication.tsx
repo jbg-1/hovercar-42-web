@@ -3,6 +3,7 @@ import { useMqttStore } from '@mirevi/puzzlecube-core';
 import useStore from '../stores/useStore';
 
 const clients = [];
+let hostIP = '';
 
 export const MqttCommunication = () => {
 	const { client } = useMqttStore();
@@ -33,11 +34,9 @@ export const MqttCommunication = () => {
 						addAppState(appState);
 					}
 				} else if (topic === 'puzzleCubes/app/registerClient') {
-					console.log('Received client registration message:', parsedMessage);
 					registerClient(parsedMessage.payload.clientId); // Ensure correct path to clientId
 				} else if (topic === 'puzzleCubes/app/setHostIP') {
-					console.log('Received hostIP message:', parsedMessage);
-					setHostIPClients(parsedMessage);
+					setHostIPForClients(parsedMessage);
 				}
 			};
 
@@ -46,20 +45,13 @@ export const MqttCommunication = () => {
 	};
 
 	const registerClient = (clientId) => {
-		console.log('Received client registration message:', clientId);
-		console.log('Registered clients:', clients || 'No clients registered.');
-
 		// Check if the clientId is already in the state
 		if (!clients.includes(clientId)) {
 			clients.push(clientId);
-		} else {
-			console.log('Client ID', clientId, 'is already registered.');
 		}
 	};
 
 	const sendDesignateHost = () => {
-		console.log('Sending designateHost command...');
-		console.log('Registered clients:' + clients || 'No clients registered.');
 		const hostClientId = clients[0];
 		const payload = {
 			command: 'designateHost',
@@ -74,10 +66,9 @@ export const MqttCommunication = () => {
 		);
 	};
 
-	const setHostIPClients = (parsedMessage) => {
+	const setHostIPForClients = (parsedMessage) => {
 		if (parsedMessage.setHostIP) {
-			const hostIP = parsedMessage.setHostIP.hostIP;
-			console.log('Received hostIP:', hostIP);
+			hostIP = parsedMessage.setHostIP.hostIP;
 
 			// Now publish the extracted hostIP
 			const payload = {
@@ -94,22 +85,54 @@ export const MqttCommunication = () => {
 		}
 	};
 
-	const startGame = () => {
-		console.log('Sending startGame command...');
+	const sendLevel = (levelId: string) => {
+		const payload = {
+			command: 'setLevel',
+			levelId,
+			timestamp: new Date().toISOString(),
+		};
 
-		const payload = '';
+		if (!client) return;
+
+		client.publish('puzzleCubes/app/sendLevel', JSON.stringify(payload));
+	};
+
+	const sendEmergency = (ipAddress: string) => {
+		let ipAddressForPayload: string;
+
+		if (!ipAddress) {
+			ipAddressForPayload = hostIP;
+		} else {
+			ipAddressForPayload = ipAddress;
+		}
+
+		const payload = {
+			command: 'setHostIPForClients',
+			hostIP: ipAddressForPayload,
+			timestamp: new Date().toISOString(),
+		};
 
 		if (!client) return;
 
 		client.publish(
-			'puzzleCubes/app/allConnectedEvent',
+			'puzzleCubes/app/emergencyConnection',
 			JSON.stringify(payload)
 		);
+	};
+
+	const startGame = () => {
+		const payload = '';
+
+		if (!client) return;
+
+		client.publish('puzzleCubes/app/startGameEvent', JSON.stringify(payload));
 	};
 
 	return {
 		subscribeAndListenToAppState,
 		sendDesignateHost,
+		sendLevel,
+		sendEmergency,
 		startGame,
 	};
 };
