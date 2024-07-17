@@ -47,6 +47,14 @@
 	width: calc(300px + 4rem);
 }
 
+.button-status--visible {
+	display: block;
+}
+
+.button-status--hidden {
+	display: none;
+}
+
 .number-input,
 .text-input {
 	border: 4px solid #000;

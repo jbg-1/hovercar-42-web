@@ -6,6 +6,7 @@ const Button = ({ type }) => {
 	const [level, setLevel] = useState('');
 	const [ipAddress, setIpAddress] = useState('');
 	const [buttonStatus, setButtonStatus] = useState('');
+	const [buttonStatusHide, setButtonStatusHide] = useState('');
 
 	const handleClick = () => {
 		if (type === 'connect') {
@@ -19,12 +20,18 @@ const Button = ({ type }) => {
 
 			mqttCommunication.sendLevel(level);
 			setButtonStatus('Level selected✅');
+
+			toggleButtonStatusVisibility();
 		} else if (type === 'start') {
 			mqttCommunication.startGame();
 			setButtonStatus('Game started✅');
+
+			toggleButtonStatusVisibility();
 		} else if (type === 'emergency') {
 			mqttCommunication.sendEmergency(ipAddress);
 			setButtonStatus('IP address sent✅');
+
+			toggleButtonStatusVisibility();
 		}
 	};
 
@@ -38,6 +45,14 @@ const Button = ({ type }) => {
 	} else if (type === 'emergency') {
 		text = 'Emergency';
 	}
+
+	const toggleButtonStatusVisibility = () => {
+		setButtonStatusHide('visible');
+
+		setTimeout(() => {
+			setButtonStatusHide('hidden');
+		}, 2000);
+	};
 
 	return (
 		<div
@@ -71,7 +86,7 @@ const Button = ({ type }) => {
 			>
 				{text}
 			</button>
-			<p className='button-status'>{buttonStatus}</p>
+			<p className={`button-status button-status--${buttonStatusHide}`}>{buttonStatus}</p>
 		</div>
 	);
 };
