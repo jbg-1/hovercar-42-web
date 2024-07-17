@@ -71,6 +71,9 @@ function App() {
 						<p>3.</p>
 						<Button type='start' />
 					</div>
+					<div className="button-wrapper button-wrapper--restart">
+						<Button type='restart' />
+					</div>
 					<div className='button-wrapper button-wrapper--emergency'>
 						<p>(only use when cube can't host or you want to reconnect)</p>
 						<Button type='emergency' />

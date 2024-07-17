@@ -32,6 +32,11 @@ const Button = ({ type }) => {
 			setButtonStatus('IP address sent✅');
 
 			toggleButtonStatusVisibility();
+		} else if (type === 'restart') {
+			mqttCommunication.restartGame();
+			setButtonStatus('Game restarted✅');
+
+			toggleButtonStatusVisibility();
 		}
 	};
 
@@ -44,6 +49,8 @@ const Button = ({ type }) => {
 		text = 'Start game';
 	} else if (type === 'emergency') {
 		text = 'Emergency';
+	} else if (type === 'restart') {
+		text = 'Restart game';
 	}
 
 	const toggleButtonStatusVisibility = () => {

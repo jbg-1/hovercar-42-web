@@ -128,12 +128,21 @@ export const MqttCommunication = () => {
 		client.publish('puzzleCubes/app/startGameEvent', JSON.stringify(payload));
 	};
 
+	const restartGame = () => {
+		const payload = '';
+
+		if (!client) return;
+
+		client.publish('puzzleCubes/app/restartGameEvent', JSON.stringify(payload));
+	};
+
 	return {
 		subscribeAndListenToAppState,
 		sendDesignateHost,
 		sendLevel,
 		sendEmergency,
 		startGame,
+		restartGame
 	};
 };
 

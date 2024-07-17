@@ -47,6 +47,10 @@
 	width: calc(300px + 4rem);
 }
 
+.button--restart {
+	width: calc(300px + 4rem);
+}
+
 .button-status--visible {
 	display: block;
 }
