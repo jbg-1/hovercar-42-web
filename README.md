@@ -1,10 +1,10 @@
 # hovercar-42-web
 
-this is a demo gamemaster app for the cubes system with some MQTT communication examples and connected cube handling. Just show events in a text box and sends out a hello to all cubes on button press.
+This is the gamemaster apps for the cubes system utilizing MQTT communication to start, restart and configure the corresponding hovercube unity-app.
 
 ## Getting started
 ### Corresponding cube App
-[https://github.com/dasdigitalefoyer/cubes-hellocubes-unity]
+(https://github.com/jbg-1/hovercar-42)
 
 ### Install Base package
 1. Pull base module (https://github.com/dasdigitalefoyer/cubes-basepackage-web-react)
