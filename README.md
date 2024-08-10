@@ -1,6 +1,6 @@
 # hovercar-42-web
 
-This is the gamemaster apps for the cubes system utilizing MQTT communication to start, restart and configure the corresponding hovercube unity-app.
+This is the gamemaster app for the cubes system utilizing MQTT communication to start, restart and configure the corresponding hovercube unity-app.
 
 ## Getting started
 ### Corresponding cube App
