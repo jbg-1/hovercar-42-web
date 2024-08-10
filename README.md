@@ -39,3 +39,6 @@ npm run dev
 
 ### Deploy
 * upload on serer & build, modify .env/.env.local for MQTT broker as provided in deployment infrastructure
+
+### Ressources
+* based on (https://github.com/dasdigitalefoyer/cubes-hellocubes-web)
